@@ -8,8 +8,8 @@
  ******************************************************************************/
 
 /* Wenn das File schon definiert wurde */
-#ifndef BOOKS_BUCHFUNKTIONEN_H
-#define BOOKS_BUCHFUNKTIONEN_H
+#ifndef BOOKS_BOOKFUNCTIONS_H
+#define BOOKS_BOOKFUNCTIONS_H
 
 /* Defines der Grössen */
 #define SIZE_TITLE  100
@@ -39,4 +39,4 @@ int deleteBook(void);
 int addBook(void);
 
 /* Ende der If-Bedingung */
-#endif //BOOKS_BUCHFUNKTIONEN_H
+#endif //BOOKS_BOOKFUNCTIONS_H

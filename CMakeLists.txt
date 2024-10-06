@@ -4,5 +4,5 @@ project(books C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(books main.c
-        buchfunktionen.c
-        buchfunktionen.h)
+        bookfunctions.c
+        bookfunctions.h)
