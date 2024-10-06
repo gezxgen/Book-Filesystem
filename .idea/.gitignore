@@ -10,3 +10,4 @@
 vcs.xml
 modules.xml
 .idea
+/cmake-build-debug/
