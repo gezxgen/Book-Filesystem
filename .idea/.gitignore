@@ -9,5 +9,5 @@
 # CLion stuff
 vcs.xml
 modules.xml
-.idea
+/.idea/
 /cmake-build-debug/
