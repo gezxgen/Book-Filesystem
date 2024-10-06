@@ -1,10 +1,9 @@
-/*************************** Projektinformationen *****************************
- *Name:
- *Autor:              Kevin
- *Datum:              03.06.2024
+/*************************** Project Information *****************************
+ *Title:              bookfunctions.c
+ *Author:             Kevin
+ *Date:               03.06.2024
  *Version:            1
- *Verbesserungen:     -
- *Infos:              Sourcefile der Funktionen, die für das Programm benötigt werden.
+ *Info:               Source file for the functions used in the program.
  ******************************************************************************/
 
 /* Includes */
@@ -15,222 +14,172 @@
 #include "bookfunctions.h"
 
 /* Defines */
-#define ue 129
-#define oe 148
-#define ae 132
+#define UE 129
+#define OE 148
+#define AE 132
 
-/* Erstellen der Strukturen */
-struct sBook sBooks[SIZE_SHELF];
+/* Creation of book structures */
+struct Book books[SIZE_SHELF];
 
-/* Initialisierung von 5 Büchern */
+/* Initialize 5 books */
 void init(void) {
-    /* Initialisierung Buch für Buch */
-    strcpy(sBooks[0].title, "A Tale of Two Cities");
-    strcpy(sBooks[0].author, "Charles Dickens");
-    sBooks[0].pages = 448;
-    sBooks[0].price = 7.99;
+    strcpy(books[0].title, "A Tale of Two Cities");
+    strcpy(books[0].author, "Charles Dickens");
+    books[0].pages = 448;
+    books[0].price = 7.99;
 
-    strcpy(sBooks[1].title, "Pride and Prejudice");
-    strcpy(sBooks[1].author, "Jane Austen");
-    sBooks[1].pages = 279;
-    sBooks[1].price = 5.99;
+    strcpy(books[1].title, "Pride and Prejudice");
+    strcpy(books[1].author, "Jane Austen");
+    books[1].pages = 279;
+    books[1].price = 5.99;
 
-    strcpy(sBooks[2].title, "The Lord of the Rings");
-    strcpy(sBooks[2].author, "J.R.R Tokien");
-    sBooks[2].pages = 1077;
-    sBooks[2].price = 12.49;
+    strcpy(books[2].title, "The Lord of the Rings");
+    strcpy(books[2].author, "J.R.R. Tolkien");
+    books[2].pages = 1077;
+    books[2].price = 12.49;
 
-    strcpy(sBooks[3].title, "To Kill a Mockingbird");
-    strcpy(sBooks[3].author, "Harper Lee");
-    sBooks[3].pages = 281;
-    sBooks[3].price = 7.49;
+    strcpy(books[3].title, "To Kill a Mockingbird");
+    strcpy(books[3].author, "Harper Lee");
+    books[3].pages = 281;
+    books[3].price = 7.49;
 
-    strcpy(sBooks[4].title, "The Great Gatsby");
-    strcpy(sBooks[4].author, "F. Fitzgerald");
-    sBooks[4].pages = 180;
-    sBooks[4].price = 10.99;
+    strcpy(books[4].title, "The Great Gatsby");
+    strcpy(books[4].author, "F. Fitzgerald");
+    books[4].pages = 180;
+    books[4].price = 10.99;
 }
 
-/* Funktion, damit überall gleich viele '-' gedruckt werden */
+/* Function to print a line of dashes */
 void print(void) {
     printf("------------------------------------------------------------------------------\n");
 }
 
-/* Funktion, um alle Bücher zu drucken */
+/* Function to print a book's information */
 int printBook() {
-    /* Variablen */
     char title[SIZE_TITLE];
-    int is_found = 0;
+    int found = 0;
 
-    /* Eingabe & speichern des Strings */
-    printf("Gebe den Titel des Buches ein: ");
+    printf("Enter the book's title: ");
     if (fgets(title, sizeof(title), stdin) != NULL) {
-        /* Entfernen des Null-terminators */
         size_t len = strlen(title);
         if (len > 0 && title[len - 1] == '\n') {
             title[len - 1] = '\0';
         }
     }
 
-    /* Die Datenbank durchsuchen */
     for (int i = 0; i < SIZE_SHELF; i++) {
-        /* Wenn das Buch gefunden wurde */
-        if (strcmp(sBooks[i].title, title) == 0) {
-            /* Drucken von den Angaben */
+        if (strcmp(books[i].title, title) == 0) {
             system("CLS");
             print();
-            printf(" Buchinfos \n");
+            printf(" Book Information \n");
             print();
-            printf("--- Titel\t: %s\n", sBooks[i].title);
-            printf("--- Author\t: %s\n", sBooks[i].author);
-            printf("--- Seiten\t: %d\n", sBooks[i].pages);
-            printf("--- Preis\t: %.2f-\n", sBooks[i].price);
-            is_found = 1;
+            printf("--- Title\t: %s\n", books[i].title);
+            printf("--- Author\t: %s\n", books[i].author);
+            printf("--- Pages\t: %d\n", books[i].pages);
+            printf("--- Price\t: %.2f-\n", books[i].price);
+            found = 1;
             break;
         }
     }
 
-    /* Return, um main mitzuteilen, ob das Buch gefunden wurde */
-    if (!is_found) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return !found;
 }
 
-/* Funktion, um alle Bücher zu drucken */
+/* Function to print all books */
 void printAllBooks(void) {
     int i = 0;
     print();
-    printf(" B%ccherregal \n", ue);
+    printf(" Book Shelf \n");
     print();
-    printf(" Titel\t\t\t\tAuthor\t\t\tSeiten\t\tPreis\n");
+    printf(" Title\t\t\t\tAuthor\t\t\tPages\t\tPrice\n");
     print();
-    while (sBooks[i].pages != 0) {
-        printf(" %s\t\t", sBooks[i].title);
-        printf("%s\t\t", sBooks[i].author);
-        printf("%d\t\t", sBooks[i].pages);
-        printf("%.2f-\n", sBooks[i].price);
+    while (books[i].pages != 0) {
+        printf(" %s\t\t", books[i].title);
+        printf("%s\t\t", books[i].author);
+        printf("%d\t\t", books[i].pages);
+        printf("%.2f-\n", books[i].price);
         i++;
     }
 }
 
-/* Funktion, um die durschnittlichen Seiten zu berechnen */
+/* Function to calculate average pages of books */
 float calculateAveragePages(void) {
-    int max_seiten = 0;
-    int i = 0;
+    int total_pages = 0, i = 0;
 
-    while (sBooks[i].pages != 0) {
-        max_seiten += sBooks[i].pages;
+    while (books[i].pages != 0) {
+        total_pages += books[i].pages;
         i++;
     }
-    return max_seiten / i;
+    return (float) total_pages / i;
 }
 
-/* Funktion, um ein Buch zu löschen */
+/* Function to delete a book */
 int deleteBook(void) {
-    /* Variablen */
     char title[SIZE_TITLE];
-    int is_found = 0;
+    int found = 0;
 
-    /* Eingabe & speichern des Strings */
-    printf("Gebe den Titel des Buches ein: ");
+    printf("Enter the book's title: ");
     if (fgets(title, sizeof(title), stdin) != NULL) {
-        /* Entfernen des Null-terminators */
         size_t len = strlen(title);
         if (len > 0 && title[len - 1] == '\n') {
             title[len - 1] = '\0';
         }
     }
 
-    /* Die Datenbank durchsuchen */
     for (int i = 0; i < SIZE_SHELF; i++) {
-        /* Wenn das Buch gefunden wurde */
-        if (strcmp(sBooks[i].title, title) == 0) {
-            /* nachschieben vom Rest der Bücher */
+        if (strcmp(books[i].title, title) == 0) {
             for (int j = i; j < (SIZE_SHELF - 1); j++) {
-                strcpy(sBooks[j].title, sBooks[j + 1].title);
-                strcpy(sBooks[j].author, sBooks[j + 1].author);
-                sBooks[j].pages = sBooks[j + 1].pages;
-                sBooks[j].price = sBooks[j + 1].price;
+                strcpy(books[j].title, books[j + 1].title);
+                strcpy(books[j].author, books[j + 1].author);
+                books[j].pages = books[j + 1].pages;
+                books[j].price = books[j + 1].price;
             }
             system("CLS");
-            is_found = 1;
+            found = 1;
             break;
         }
     }
 
-    /* Return, um main mitzuteilen, ob das Buch gefunden wurde */
-    if (!is_found) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return !found;
 }
 
-/* Funktion, um ein neues Buch hinzuzufügen */
+/* Function to add a new book */
 int addBook(void) {
-    /* Variables */
     int i = 0;
-    char title[SIZE_TITLE];
-    char author[SIZE_AUTHOR];
+    char title[SIZE_TITLE], author[SIZE_AUTHOR];
 
-    /* herausfinden, ab welchen Index hinzugefügt werden kann */
-    while (sBooks[i].pages != 0) {
+    while (books[i].pages != 0) {
         i++;
     }
 
-    /* Wenn alle Plätze bereits voll sind */
     if (i == 9) {
         system("CLS");
         return 1;
     }
 
-    /* Eingabe vom Titel */
-    printf("Gebe den Titel des Buches ein\t\t\t: ");
+    printf("Enter the book's title\t\t\t: ");
     if (fgets(title, sizeof(title), stdin) != NULL) {
-        /* Entfernen des Null-terminators */
         size_t len = strlen(title);
         if (len > 0 && title[len - 1] == '\n') {
             title[len - 1] = '\0';
         }
     }
 
-    /* Eingabe vom Author */
-    printf("Gebe den Author des Buches ein\t\t\t: ");
+    printf("Enter the author's name\t\t\t: ");
     if (fgets(author, sizeof(author), stdin) != NULL) {
-        /* Entfernen des Null-terminators */
         size_t length = strlen(author);
         if (length > 0 && author[length - 1] == '\n') {
             author[length - 1] = '\0';
         }
     }
 
-    /* Übertragen der Werte */
-    strcpy(sBooks[i].title, title);
-    strcpy(sBooks[i].author, author);
-    printf("Gebe die Anzahl Seiten vom neuen Buch ein\t: ");
-    scanf("%d", &sBooks[i].pages);
-    printf("Gebe den Preis vom neuen Buch ein\t\t: ");
-    scanf("%f", &sBooks[i].price);
+    /* Transfer the values */
+    strcpy(books[i].title, title);
+    strcpy(books[i].author, author);
+    printf("Enter the number of pages of the book\t: ");
+    scanf("%d", &books[i].pages);
+    printf("Enter the price for the book\t\t: ");
+    scanf("%f", &books[i].price);
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,11 +1,10 @@
-/*************************** Projektinformationen *****************************
- *Titel:
- *Name:               main.c
- *Autor:              Kevin
- *Datum:              03.06.2024
+/*************************** Project Information *****************************
+ *Title:              main.c
+ *Author:             Kevin
+ *Date:               03.06.2024
  *Version:            1
- *Verbesserungen:     -
- *Infos:              Es wird ein Programm...
+ *Improvements:       -
+ *Info:               A program to manage a simple book database.
  ******************************************************************************/
 
 /* Includes */
@@ -15,83 +14,83 @@
 #include "bookfunctions.h"
 
 /* Defines */
-#define ue 129
-#define oe 148
-#define ae 132
+#define UE 129
+#define OE 148
+#define AE 132
 
-/* Main Funktion mit Command line arguments */
+/* Main function with command line arguments */
 int main(int argc, char *argv[]) {
-    /* Variabeln */
-    char cEingabe;
+    /* Variables */
+    char input;
 
-    init();     /* Initialisierung, um nicht immer alles einzugeben */
+    init();  /* Initialization to avoid manual input every time */
 
-    /* Hauptschleife */
+    /* Main loop */
     do {
-        /* Mögliche Funktionen */
+        /* Available Functions */
         print();
-        printf(" B%ccherdatenbank \n", ue);
+        printf(" Book Database \n");
         print();
-        printf("--- 0 : Programm abbrechen \n");
-        printf("--- 1 : Erfassen \n");
-        printf("--- 2 : L%cschen \n", oe);
-        printf("--- 3 : Suchen \n");
-        printf("--- 4 : Durchschnittliche Seiten berechnen \n");
-        printf("--- 5 : Ausgabe \n");
+        printf("--- 0 : Exit Program \n");
+        printf("--- 1 : Add Book \n");
+        printf("--- 2 : Delete Book \n");
+        printf("--- 3 : Search Book \n");
+        printf("--- 4 : Calculate Average Pages \n");
+        printf("--- 5 : Display All Books \n");
         print();
-        cEingabe = getch();
+        input = getch();
         system("CLS");
 
-        /* Switch Case der Funktionen */
-        switch (cEingabe) {
-            /* Programmabbruch */
+        /* Switch case for the functions */
+        switch (input) {
+            /* Exit Program */
             case '0' :
                 exit(0);
 
-            /* Erfassung */
+                /* Add Book */
             case '1' :
-                /* Ausgabe, ob das Buch hinzugefügt werden konnte */
+                /* Output if the book could be added */
                 if (addBook() != 0) {
                     system("CLS");
                     print();
-                    printf(" Es sind bereits alle Pl%ctze belegt...\n", ae);
+                    printf(" All slots are already occupied...\n");
                 }
                 break;
 
-            /* Löschung */
+                /* Delete Book */
             case '2' :
-                /* Ausgabe, ob Buch gelöscht wurde */
+                /* Output if the book could be deleted */
                 if (deleteBook() != 0) {
                     system("CLS");
                     print();
-                    printf(" Buch konnte nicht gel%cscht werden...\n", oe);
+                    printf(" Book could not be deleted...\n");
                 }
                 break;
 
-            /* Suchen */
+                /* Search Book */
             case '3' :
-                /* Ausgabe, ob Buch gefunden wurde */
+                /* Output if the book was found */
                 if (printBook() != 0) {
                     system("CLS");
                     print();
-                    printf(" Buch nicht vorhanden...\n");
+                    printf(" Book not found...\n");
                 }
                 break;
 
-            /* Durchschnittliche Seitenanzahl berechnen */
+                /* Calculate Average Pages */
             case '4' :
                 print();
-                printf(" Die durchschnittliche Seitenanzahl ist: %.2f\n", calculateAveragePages());
+                printf(" The average number of pages is: %.2f\n", calculateAveragePages());
                 break;
 
-            /* Ausgabe */
+                /* Display All Books */
             case '5' :
                 printAllBooks();
                 break;
 
-            /* Default */
+                /* Default */
             default:
                 break;
         }
-    } while (cEingabe != '0');      /* Solange der Abbruch nicht gedrückt wurde */
+    } while (input != '0');  /* Loop until the exit is selected */
 }
